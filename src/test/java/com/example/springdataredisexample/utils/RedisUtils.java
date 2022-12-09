@@ -41,11 +41,8 @@ public class RedisUtils {
         redisTemplate.opsForList().rightPush(listKey, member03);
         redisTemplate.opsForList().rightPush(listKey, member04);
 
-        List<Member> members = redisTemplate.opsForList().range(listKey, 0, 2);
+        List<Member> members = redisTemplate.opsForList().range(listKey, 0, -1);
         members.forEach(System.out::println);
-
-        Long removeIndex = redisTemplate.opsForList().remove(listKey, 1, member01);
-
     }
 
 }

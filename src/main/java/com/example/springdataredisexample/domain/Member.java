@@ -1,6 +1,8 @@
 package com.example.springdataredisexample.domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
@@ -10,6 +12,7 @@ import java.util.UUID;
 
 @Getter
 @ToString
+@NoArgsConstructor
 @RedisHash(value = "member", timeToLive = 20)
 public class Member implements Serializable {
 
