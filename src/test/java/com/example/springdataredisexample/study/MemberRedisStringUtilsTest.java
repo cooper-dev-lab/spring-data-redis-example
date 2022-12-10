@@ -1,7 +1,7 @@
 package com.example.springdataredisexample.study;
 
 import com.example.springdataredisexample.domain.Member;
-import com.example.springdataredisexample.utils.RedisUtils;
+import com.example.springdataredisexample.utils.MemberRedisStringUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +11,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 @SpringBootTest
-public class RedisUtilTest {
+public class MemberRedisStringUtilsTest {
 
     @Autowired
-    private RedisUtils redisUtils;
+    private MemberRedisStringUtils memberRedisStringUtils;
 
     @Test
     @DisplayName("strings: setTest")
     void stringsSet() {
         Member member = Member.of("member01");
-        Member savedMember = redisUtils.setStrings(member);
+        Member savedMember = memberRedisStringUtils.set(member);
         assertThat(member.getId()).isEqualTo(savedMember.getId());
     }
 
@@ -28,13 +28,13 @@ public class RedisUtilTest {
     @DisplayName("strings: getTest(with null)")
     void stringsGet() {
         assertThatExceptionOfType(RuntimeException.class)
-                .isThrownBy(() -> redisUtils.getStrings("not saved id").orElseThrow(RuntimeException::new));
+                .isThrownBy(() -> memberRedisStringUtils.get("not saved id").orElseThrow(RuntimeException::new));
     }
 
     @Test
     @DisplayName("list 테스트")
     void list() {
-        redisUtils.list();
+        memberRedisStringUtils.list();
     }
 
 }

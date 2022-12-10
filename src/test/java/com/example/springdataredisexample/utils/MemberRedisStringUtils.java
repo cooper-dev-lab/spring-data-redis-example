@@ -8,25 +8,25 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class RedisUtils {
+public class MemberRedisStringUtils {
 
     private final RedisTemplate<String, Member> redisTemplate;
 
-    public RedisUtils(RedisTemplate<String, Member> redisTemplate) {
+    public MemberRedisStringUtils(RedisTemplate<String, Member> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
-    public Member setStrings(Member member) {
+    public Member set(Member member) {
         redisTemplate.opsForValue().set(member.getId(), member);
-        return (Member) redisTemplate.opsForValue().get(member.getId());
+        return redisTemplate.opsForValue().get(member.getId());
     }
 
-    public Optional<Member> getStrings(String memberId) {
-        return Optional.ofNullable((Member) redisTemplate.opsForValue().get(memberId)); // key 값에 대한 value 가 존재하지 않으면 null 반환
+    public Optional<Member> get(String memberId) {
+        return Optional.ofNullable(redisTemplate.opsForValue().get(memberId)); // key 값에 대한 value 가 존재하지 않으면 null 반환
     }
 
-    public Optional<Member> getDeleteStrings(String memberId) {
-        return Optional.ofNullable((Member)redisTemplate.opsForValue().getAndDelete(memberId)); // key 값에 대한 value 가 존재하지 않으면 null 반환
+    public Optional<Member> getAndDelete(String memberId) {
+        return Optional.ofNullable(redisTemplate.opsForValue().getAndDelete(memberId)); // key 값에 대한 value 가 존재하지 않으면 null 반환
     }
 
     public void list() {
